@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector IA V2 - Análise Preditiva de Criptomoedas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --secondary: #7b2cbf;
+            --accent: #ff00c8;
+            --dark: #0a0a16;
+            --darker: #050510;
+            --light: #e0e0ff;
+            --card-bg: rgba(15, 15, 35, 0.8);
+            --glow: 0 0 15px var(--primary);
+            --font-title: 'Orbitron', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-body);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 5, 16, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            font-family: var(--font-title);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* --- CORREÇÃO 1: Bloco Hero para a ESQUERDA --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-image: url('imagens/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero .container {
+            max-width: none;
+            width: 100%;
+            padding: 0 5%;
+        }
+
+        /* Container ocupa 100% e tem padding fixo */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(5, 5, 16, 0.7);
+            z-index: 1;
+        }
+
+        .hero-content {
+            width: auto;
+            text-align: left;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero h1 {
+            font-family: var(--font-title);
+            font-size: 6.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .hero h1 .cursor {
+            display: inline-block;
+            width: 5px;
+            height: 5.5rem;
+            background: var(--primary);
+            animation: blink 1s infinite;
+            margin-left: 10px;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: #b0b0ff;
+            max-width: 550px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            border: none;
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px var(--primary);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 240, 255, 0.1);
+            box-shadow: var(--glow);
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .section-bg {
+            background: rgba(10, 10, 30, 0.7);
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            position: relative;
+            background: linear-gradient(90deg, var(--light), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .compatibility-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .compatibility-text {
+            flex: 1;
+        }
+
+        .roadmap {
+            flex: 1;
+            margin-top: 0;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .platform-icons {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .platform-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .windows-icon {
+            background: linear-gradient(135deg, #0078d7, #00bcf2);
+            box-shadow: 0 0 20px #0078d7;
+        }
+
+        .other-platforms {
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0.5;
+        }
+
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+
+        .roadmap-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .roadmap-item.current::before {
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .model-section-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .model-image-container {
+            flex: 1;
+            min-height: 400px;
+            display: flex;
+        }
+
+        .model-image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 15px;
+        }
+
+        .model-text {
+            flex: 1.2;
+        }
+
+        .model-text h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .model-text p {
+            margin-bottom: 15px;
+            color: #b0b0ff;
+        }
+
+        .model-text .accuracy {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2ecc71;
+            margin-top: 20px;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .about-image-container {
+            flex: 0.8;
+            border-radius: 15px;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-image-container img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .about-text {
+            flex: 1.2;
+            text-align: left;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #b0b0ff;
+            font-size: 1.1rem;
+        }
+
+        /* --- CORREÇÃO 3: Botões Finais Lado a Lado --- */
+        .cta-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.1);
+            text-align: center;
+        }
+
+        .cta-card h2 {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .cta-card p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #b0b0ff;
+        }
+
+        .cta-card .final-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .cta-card .purchase-note {
+            font-size: 0.9rem;
+            color: #b0b0ff;
+            margin-top: 20px;
+        }
+
+        footer {
+            padding: 60px 0 30px;
+            background: var(--dark);
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            position: relative;
+            z-index: 5;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #b0b0ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        @media (max-width: 992px) {
+            .hero .container {
+                padding: 0 5%;
+            }
+
+            .model-section-content,
+            .compatibility-content,
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-text {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                width: 100%;
+                text-align: center;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .hero .container {
+                padding: 0;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero h1 .cursor {
+                height: 3.7rem;
+            }
+
+            .cta-buttons,
+            .final-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="imagens/Designer.jpeg" alt="Vector IA Logo" class="logo-img">
+                    <div class="logo-text">Vector IA</div>
+                </div>
+                <nav class="nav-links">
+                    <a href="#features">Recursos</a>
+                    <a href="#compatibility">Roadmap</a>
+                    <a href="#models">Modelos</a>
+                    <a href="#about">Sobre</a>
+                    <a href="#download">Download</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 id="hero-title"></h1>
+                <p>Decodificando o mercado cripto com inteligência artificial preditiva e análise de fluxo de ordens em
+                    tempo real.São 11 Criptos cirurgicamente treinadas e analisadas para maximizar sua precisão no
+                    trading.</p>
+                <div class="cta-buttons">
+                    <a href="#download" class="btn btn-primary">Baixar Agora (Windows)</a>
+                    <!-- CORREÇÃO 2: Botão "Saiba Mais" alterado -->
+                    <a href="#download" class="btn btn-secondary">Adquirir Chave</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-bg features" id="features">
+        <div class="container">
+            <h2 class="section-title">Tecnologia de Ponta</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                    <h3>IA Preditiva</h3>
+                    <p>Nossos modelos detectam padrões institucionais e preveem movimentos de preço com base em dados
+                        validados.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt-lightning"></i></div>
+                    <h3>Fluxo de Ordens</h3>
+                    <p>Medimos a agressão de compra e venda a cada segundo para antecipar movimentos antes que apareçam
+                        nos gráficos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                    <h3>Painel Intuitivo</h3>
+                    <p>Interface centralizada com sinais visuais para indicar compra, venda, risco ou volatilidade em
+                        tempo real.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Gestão de Risco</h3>
+                    <p>Alertas de divergência e detecção de armadilhas de mercado para proteger suas operações e
+                        melhorar o controle de risco.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-magnifying-glass-chart"></i></div>
+                    <h3>Microestrutura</h3>
+                    <p>Análise de book imbalance e volume delta para entender a dinâmica da oferta e demanda no nível
+                        mais granular.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>Alta Performance</h3>
+                    <p>Motor otimizado para Windows com processamento em tempo real de dados de mercado para decisões
+                        rápidas e precisas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-bg compatibility" id="compatibility">
+        <div class="container">
+            <h2 class="section-title">Compatibilidade e Roadmap</h2>
+            <div class="compatibility-content">
+                <div class="compatibility-text">
+                    <h3>Versão Atual: Windows</h3>
+                    <p>O Vector IA V2 foi desenvolvido como uma solução de alta performance para Windows, aproveitando
+                        ao máximo os recursos do sistema para análise preditiva em tempo real.</p>
+                    <div class="platform-icons">
+                        <div class="platform-icon windows-icon"><i class="fab fa-windows"></i></div>
+                        <div class="platform-icon other-platforms"><i class="fab fa-apple"></i></div>
+                        <div class="platform-icon other-platforms"><i class="fab fa-linux"></i></div>
+                        <div class="platform-icon other-platforms"><i class="fas fa-mobile-alt"></i></div>
+                    </div>
+                </div>
+                <div class="roadmap">
+                    <div class="roadmap-item current">
+                        <h4>Vector IA V2 (MVP)</h4>
+                        <p>Versão atual para Windows - Análise preditiva de alta performance</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <h4>Vector IA V3</h4>
+                        <p>Expansão para macOS e Linux</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <h4>Vector IA Mobile</h4>
+                        <p>Aplicativo móvel para iOS e Android</p>
+                    </div>
+                    <div class="roadmap-item">
+                        <h4>Vector IA Pro</h4>
+                        <p>Plataforma empresarial com API</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-bg models" id="models">
+        <div class="container">
+            <h2 class="section-title">Precisão Comprovada</h2>
+            <div class="model-section-content">
+                <div class="model-image-container">
+                    <img src="imagens/matizv2.png" alt="Matriz de Confusão do Modelo Ethereum">
+                </div>
+                <div class="model-text">
+                    <h3>Modelo Preditivo: Ethereum (ETH/USDT)</h3>
+                    <p>Nossos modelos são rigorosamente treinados e validados com anos de dados históricos. Utilizamos
+                        técnicas de backtesting para garantir que as estratégias demonstrem uma vantagem estatística
+                        consistente.</p>
+                    <p>O modelo para Ethereum, por exemplo, é treinado para identificar padrões de acumulação e
+                        distribuição institucionais, resultando em sinais de alta probabilidade que visam capturar
+                        movimentos significativos.</p>
+                    <div class="accuracy">Taxa de Acerto em Backtest: 78.4%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-bg about" id="about">
+        <div class="container">
+            <h2 class="section-title">Nossa Missão</h2>
+            <div class="about-content">
+                <div class="about-image-container">
+                    <img src="imagens/equipe.jpg" alt="Equipe ou conceito da Vector IA">
+                </div>
+                <div class="about-text">
+                    <h3>Democratizando a Análise Quantitativa</h3>
+                    <p>A Vector IA nasceu da convicção de que as ferramentas de análise mais poderosas não deveriam ser
+                        exclusivas para grandes instituições. Somos uma fintech de tecnologia e inovação, dedicada a
+                        desenvolver softwares de nível institucional e torná-los acessíveis para traders de varejo
+                        ambiciosos.</p>
+                    <p>Nossa equipe combina especialistas em inteligência artificial, ciência de dados e mercado de
+                        capitais para criar soluções que oferecem uma vantagem competitiva real. Acreditamos no poder
+                        dos dados para transformar a tomada de decisão.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- CORREÇÃO 3: Seção final de CTA com dois botões lado a lado --- -->
+    <section class="section section-bg cta-section" id="download">
+        <div class="container">
+            <div class="cta-card">
+                <h2>Pronto para Operar com uma Nova Perspectiva?</h2>
+                <p>Adquira sua licença e faça o download do Vector IA V2 para começar a usar a inteligência artificial a
+                    seu favor.</p>
+                <div class="final-buttons">
+                    <a href="https://lastlink.com/p/C1B1B9998/" class="btn btn-primary">Adquirir Chave</a>
+                    <a href="https://github.com/m4zz4s/-vector-ia-installer/releases/tag/VectorIAv2"
+                        class="btn btn-secondary">Baixar para Windows</a>
+                </div>
+                <p class="purchase-note">Nosso plano está R$ 49,90 mensal. Após a compra, sua chave de acesso será
+                    enviada para seu e-mail.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Vector IA</h3>
+                    <p>Análise quantitativa e preditiva para o mercado de criptomoedas.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#compatibility">Roadmap</a></li>
+                        <li><a href="#models">Modelos</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Suporte</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:contato@vectoria.com">vectoriasignalscontato@gmail.com</a></li>
+                        <li><a href="tel:+5511999999999">+55 (12) 99223-8242</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Vector IA. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', { particles: { number: { value: 50 }, color: { value: "#7b2cbf" }, shape: { type: "circle" }, opacity: { value: 0.3, random: true }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 200, color: "#00f0ff", opacity: 0.2, width: 1 }, move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out" } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" } } } });
+        window.addEventListener('load', function () {
+            const titleElement = document.getElementById('hero-title');
+            const textToType = "Vector IA V2";
+            titleElement.innerHTML = '<span class="text"></span><span class="cursor"></span>';
+            const textSpan = titleElement.querySelector('.text');
+            let i = 0;
+            function typeWriter() {
+                if (i < textToType.length) {
+                    textSpan.textContent += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 120);
+                } else {
+                    titleElement.querySelector('.cursor').style.display = 'none';
+                }
+            }
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+</body>
+
+</html>
