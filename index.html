@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vector IA V2 - Análise Preditiva de Criptomoedas</title>
+    <title>Vector IA V2.1 - Análise Preditiva de Criptomoedas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -578,6 +578,183 @@
                 max-width: 300px;
             }
         }
+
+        /* --- Estilos para a nova seção Dashboard Preview --- */
+        .preview-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            /* Aumenta o espaço entre os dois blocos */
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .preview-item.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .preview-image {
+            flex: 1.2;
+            /* Dá mais espaço para a imagem */
+            background-color: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .preview-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .preview-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .preview-text {
+            flex: 1;
+        }
+
+        .preview-text h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .preview-text p {
+            color: #b0b0ff;
+            font-size: 1.1rem;
+        }
+
+        /* Ajustes para telas menores */
+        @media (max-width: 992px) {
+
+            .preview-item,
+            .preview-item.reverse {
+                flex-direction: column;
+            }
+        }
+
+        /* --- Estilos para a nova seção de Exchanges --- */
+        .exchanges-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .exchanges-intro {
+            font-size: 1.2rem;
+            color: #b0b0ff;
+            margin-bottom: 50px;
+            line-height: 1.7;
+        }
+
+        .exchange-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .exchange-logo-card {
+            background: var(--card-bg);
+            padding: 30px 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .exchange-logo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .exchange-logo-card img {
+            height: 50px;
+            /* Altura fixa para os logos */
+            width: auto;
+            filter: grayscale(100%) brightness(1.5);
+            /* Deixa os logos brancos/cinzas */
+            transition: filter 0.3s ease;
+        }
+
+        .exchange-logo-card:hover img {
+            filter: none;
+            /* Cor original ao passar o mouse */
+        }
+
+        /* --- Estilos para a nova seção de Comunidade --- */
+        .community-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.1);
+            text-align: center;
+        }
+
+        .community-intro {
+            font-size: 1.2rem;
+            color: #b0b0ff;
+            margin-top: -30px;
+            /* Puxa o texto para mais perto do título */
+            margin-bottom: 40px;
+        }
+
+        .community-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .community-link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .community-link-btn i {
+            font-size: 1.8rem;
+        }
+
+        .community-link-btn.youtube {
+            background-color: #FF0000;
+        }
+
+        .community-link-btn.telegram {
+            background-color: #0088cc;
+        }
+
+        /* Efeito de hover */
+        .community-link-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
     </style>
 
 
@@ -591,15 +768,20 @@
             <div class="header-content">
                 <div class="logo">
                     <img src="imagens/Designer.jpeg" alt="Vector IA Logo" class="logo-img">
-                    <div class="logo-text">Vector IA</div>
+                    <div class="logo-text">Vector IA Signals</div>
                 </div>
                 <nav class="nav-links">
                     <a href="#features">Recursos</a>
-                    <a href="#compatibility">Roadmap</a>
+                    <a href="#dashboard-preview">Painel 2.1</a>
+                    <a href="#exchanges">Exchanges</a>
+                    <a href="#community">Comunidade</a>
                     <a href="#models">Modelos</a>
                     <a href="#about">Sobre</a>
                     <a href="#download">Download</a>
                 </nav>
+
+
+
             </div>
         </div>
     </header>
@@ -608,9 +790,10 @@
         <div class="container">
             <div class="hero-content">
                 <h1 id="hero-title"></h1>
-                <p>Decodificando o mercado cripto com inteligência artificial preditiva e análise de fluxo de ordens em
-                    tempo real.São 11 Criptos cirurgicamente treinadas e analisadas para maximizar sua precisão no
-                    trading.</p>
+                <p>Estamos gradualmente crescendo, Trabalhamos com dados da Bitget e Kucoin, a Vector IA Signals V2.1
+                    lhe oferece 15 ativos em cada uma das corretora, cada ativo foi treinado e delicadamente regulado
+                    para que sua precisão seja de acordo com o seu comportamento no mercado e isso só promove a precisão
+                    da analise.</p>
                 <div class="cta-buttons">
                     <a href="#download" class="btn btn-primary">Baixar Agora (Windows)</a>
                     <!-- CORREÇÃO 2: Botão "Saiba Mais" alterado -->
@@ -651,8 +834,8 @@
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-magnifying-glass-chart"></i></div>
                     <h3>Microestrutura</h3>
-                    <p>Análise de book imbalance e volume delta para entender a dinâmica da oferta e demanda no nível
-                        mais granular.</p>
+                    <p>Acompanhamento na operação, saiba a hora de sair da sua operação tendo a confimação da
+                        Microestrutura.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-rocket"></i></div>
@@ -663,6 +846,62 @@
             </div>
         </div>
     </section>
+    <!-- =================================================================== -->
+    <!-- ============ NOVA SEÇÃO PAINEL 2.1 COMEÇA AQUI ==================== -->
+    <!-- =================================================================== -->
+    <section class="section section-bg" id="dashboard-preview">
+        <div class="container">
+            <h2 class="section-title">Conheça o Novo Painel 2.1</h2>
+            <div class="preview-grid">
+                <!-- Bloco 1: Visão Geral -->
+                <div class="preview-item">
+                    <div class="preview-image">
+                        <img src="imagens/Imagem1.jpg" alt="Visão Geral do Painel Vector IA 2.1">
+                    </div>
+                    <div class="preview-text">
+                        <h3>Radar de Ativos e Feed Tático</h3>
+                        <p>A tela principal foi redesenhada para máxima eficiência. O <strong>Radar de Ativos</strong>
+                            usa um sistema de cores intuitivo para mostrar o status de cada cripto (Gatilho, Observação,
+                            Squeeze), enquanto o <strong>Feed de Inteligência Tática</strong> registra todos os eventos
+                            importantes em tempo real.</p>
+                    </div>
+                </div>
+                <!-- Bloco 2: Sala de Análise -->
+                <div class="preview-item reverse">
+                    <div class="preview-image">
+                        <img src="imagens/painel.jpg" alt="Sala de Análise Detalhada">
+                    </div>
+                    <div class="preview-text">
+                        <h3>Sala de Análise Profunda</h3>
+                        <p>Mergulhe nos detalhes de qualquer ativo com um clique. A nova <strong>Sala de
+                                Análise</strong> combina o plano de trade estratégico (o porquê) com as condições
+                            táticas (o agora), incluindo Book Imbalance, Volume Delta e a janela de oportunidade
+                            estimada, tudo integrado a um gráfico dinâmico.</p>
+                    </div>
+                </div>
+                <!-- Bloco 3: Análise de Microestrutura -->
+                <div class="preview-item">
+                    <div class="preview-image">
+                        <img src="imagens/microestrutura.jpg" alt="Análise de Microestrutura e Fluxo de Ordens">
+                    </div>
+                    <div class="preview-text">
+                        <h3>A Vantagem da Microestrutura</h3>
+                        <p>Vá além dos gráficos. O Vector IA 2.1 analisa o fluxo de ordens em tempo real para te dar uma
+                            vantagem decisiva. Métricas como <strong>Book Imbalance</strong> (pressão de compra/venda),
+                            <strong>ADX</strong> (força da tendência) e <strong>Volume Delta</strong> (agressão do
+                            mercado) confirmam ou invalidam os sinais da IA, garantindo que você entre em operações com
+                            muito mais confiança.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- =================================================================== -->
+    <!-- ============= NOVA SEÇÃO PAINEL 2.1 TERMINA AQUI ================== -->
+    <!-- =================================================================== -->
+
 
     <section class="section section-bg compatibility" id="compatibility">
         <div class="container">
@@ -706,7 +945,7 @@
             <h2 class="section-title">Precisão Comprovada</h2>
             <div class="model-section-content">
                 <div class="model-image-container">
-                    <img src="imagens/matizv2.png" alt="Matriz de Confusão do Modelo Ethereum">
+                    <img src="imagens/matriz.png" alt="Matriz de Confusão do Modelo Ethereum">
                 </div>
                 <div class="model-text">
                     <h3>Modelo Preditivo: Ethereum (ETH/USDT)</h3>
@@ -742,13 +981,70 @@
             </div>
         </div>
     </section>
+    <!-- =================================================================== -->
+    <!-- ============ NOVA SEÇÃO EXCHANGES COMEÇA AQUI ===================== -->
+    <!-- =================================================================== -->
+    <section class="section" id="exchanges">
+        <div class="container">
+            <h2 class="section-title">Conexão Direta com as Melhores Exchanges</h2>
+            <div class="exchanges-container">
+                <p class="exchanges-intro">
+                    O Vector IA 2.1 se conecta diretamente aos dados de mercado da <strong>KuCoin</strong> e da
+                    <strong>Bitget</strong>. Isso garante que nossa análise preditiva e de fluxo de ordens seja feita
+                    com informações em tempo real, oferecendo a você sinais precisos e de baixa latência.
+                </p>
+                <div class="exchange-logos">
+                    <div class="exchange-logo-card">
+                        <img src="imagens/kucoin_logo.png" alt="Logo da KuCoin">
+                    </div>
+                    <div class="exchange-logo-card">
+                        <img src="imagens/bitget_logo.png" alt="Logo da Bitget">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =================================================================== -->
+    <!-- ============= NOVA SEÇÃO EXCHANGES TERMINA AQUI =================== -->
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+    <!-- ============ NOVA SEÇÃO COMUNIDADE COMEÇA AQUI ==================== -->
+    <!-- =================================================================== -->
+    <section class="section section-bg" id="community">
+        <div class="container">
+            <div class="community-card">
+                <h2 class="section-title">Junte-se à Nossa Comunidade</h2>
+                <p class="community-intro">
+                    Faça parte do nosso ecossistema! Acompanhe o desenvolvimento de novas funcionalidades, participe de
+                    discussões e aprenda com outros traders em nossa comunidade exclusiva.
+                </p>
+                <div class="community-links">
+                    <a href="http://www.youtube.com/@mazza.ia.vector" target="_blank"
+                        class="community-link-btn youtube">
+                        <i class="fab fa-youtube"></i>
+                        <span>Acompanhe no YouTube</span>
+                    </a>
+                    <a href="[https://t.me/+hMSXPhoUMTdkNDRh]" target="_blank" class="community-link-btn telegram">
+                        <i class="fab fa-telegram"></i>
+                        <span>Entre na Comunidade</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =================================================================== -->
+    <!-- ============= NOVA SEÇÃO COMUNIDADE TERMINA AQUI ================== -->
+    <!-- =================================================================== -->
+
+
 
     <!-- --- CORREÇÃO 3: Seção final de CTA com dois botões lado a lado --- -->
     <section class="section section-bg cta-section" id="download">
         <div class="container">
             <div class="cta-card">
                 <h2>Pronto para Operar com uma Nova Perspectiva?</h2>
-                <p>Adquira sua licença e faça o download do Vector IA V2 para começar a usar a inteligência artificial a
+                <p>Adquira sua licença e faça o download do Vector IA V2.1 para começar a usar a inteligência artificial
+                    a
                     seu favor.</p>
                 <div class="final-buttons">
                     <a href="https://lastlink.com/p/C1B1B9998/" class="btn btn-primary">Adquirir Chave</a>
@@ -794,7 +1090,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2024 Vector IA. Todos os direitos reservados.</p>
+                <p>&copy; 2024 Vector IA Signals. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
@@ -804,7 +1100,7 @@
         particlesJS('particles-js', { particles: { number: { value: 50 }, color: { value: "#7b2cbf" }, shape: { type: "circle" }, opacity: { value: 0.3, random: true }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 200, color: "#00f0ff", opacity: 0.2, width: 1 }, move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out" } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" } } } });
         window.addEventListener('load', function () {
             const titleElement = document.getElementById('hero-title');
-            const textToType = "Vector IA V2";
+            const textToType = "Vector IA V2.1";
             titleElement.innerHTML = '<span class="text"></span><span class="cursor"></span>';
             const textSpan = titleElement.querySelector('.text');
             let i = 0;
