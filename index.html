@@ -6,18 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vector IA V2.1 - Análise Preditiva de Criptomoedas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --primary: #00f0ff;
-            --secondary: #7b2cbf;
-            --accent: #ff00c8;
-            --dark: #0a0a16;
+            --primary: #00C6FF;
+            --secondary: #E74C3C;
+            --accent: #2ECC71;
+            --dark: #0E1117;
             --darker: #050510;
-            --light: #e0e0ff;
-            --card-bg: rgba(15, 15, 35, 0.8);
-            --glow: 0 0 15px var(--primary);
-            --font-title: 'Orbitron', sans-serif;
-            --font-body: 'Roboto', sans-serif;
+            --light: #F5F7FA;
+            --card-bg: rgba(14, 17, 23, 0.8);
+            --glow: 0 0 15px rgba(0, 198, 255, 0.5);
+            --font-title: 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
         * {
@@ -34,7 +36,7 @@
         body {
             background-color: var(--darker);
             color: var(--light);
-            overflow-x: hidden;
+            /* overflow-x: hidden; */
             line-height: 1.6;
         }
 
@@ -51,14 +53,16 @@
             padding: 0 20px;
         }
 
+        /* Header melhorado */
         header {
-            padding: 20px 0;
+            padding: 15px 0;
             position: fixed;
             width: 100%;
             z-index: 1000;
-            background: rgba(5, 5, 16, 0.8);
+            background: rgba(5, 5, 16, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 198, 255, 0.2);
+            transition: all 0.3s ease;
         }
 
         .header-content {
@@ -81,14 +85,15 @@
 
         .logo-text {
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--light);
             font-family: var(--font-title);
+            letter-spacing: -0.5px;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
         }
 
         .nav-links a {
@@ -98,9 +103,34 @@
             position: relative;
             padding: 5px 0;
             transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
 
-        /* --- CORREÇÃO 1: Bloco Hero para a ESQUERDA --- */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero section melhorada */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -111,6 +141,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            padding-top: 80px;
         }
 
         .hero .container {
@@ -119,7 +150,6 @@
             padding: 0 5%;
         }
 
-        /* Container ocupa 100% e tem padding fixo */
         .hero::before {
             content: '';
             position: absolute;
@@ -127,7 +157,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(5, 5, 16, 0.7);
+            background: linear-gradient(to right, rgba(5, 5, 16, 0.85), rgba(5, 5, 16, 0.6));
             z-index: 1;
         }
 
@@ -136,11 +166,12 @@
             text-align: left;
             position: relative;
             z-index: 3;
+            max-width: 650px;
         }
 
         .hero h1 {
             font-family: var(--font-title);
-            font-size: 6.5rem;
+            font-size: 5rem;
             font-weight: 900;
             margin-bottom: 20px;
             line-height: 1.1;
@@ -148,13 +179,13 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            text-shadow: 0 0 20px rgba(0, 198, 255, 0.4);
         }
 
         .hero h1 .cursor {
             display: inline-block;
             width: 5px;
-            height: 5.5rem;
+            height: 5rem;
             background: var(--primary);
             animation: blink 1s infinite;
             margin-left: 10px;
@@ -174,10 +205,11 @@
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-bottom: 40px;
             color: #b0b0ff;
             max-width: 550px;
+            line-height: 1.7;
         }
 
         .cta-buttons {
@@ -188,18 +220,19 @@
 
         .btn {
             padding: 15px 35px;
-            border-radius: 50px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             text-align: center;
+            display: inline-block;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--dark);
+            background: linear-gradient(135deg, var(--primary), #0099CC);
+            color: white;
             border: none;
             box-shadow: var(--glow);
         }
@@ -216,7 +249,7 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(0, 240, 255, 0.1);
+            background: rgba(0, 198, 255, 0.1);
             box-shadow: var(--glow);
         }
 
@@ -233,13 +266,14 @@
         .section-title {
             font-family: var(--font-title);
             text-align: center;
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin-bottom: 60px;
             position: relative;
             background: linear-gradient(90deg, var(--light), var(--primary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            font-weight: 800;
         }
 
         .section-title::after {
@@ -261,15 +295,15 @@
 
         .feature-card {
             background: var(--card-bg);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 30px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 198, 255, 0.1);
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 198, 255, 0.2);
             border-color: var(--primary);
         }
 
@@ -280,11 +314,239 @@
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 15px;
             color: var(--light);
+            font-weight: 700;
         }
 
+        /* Nova seção de Equipe */
+        .team-section {
+            padding: 100px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .team-member {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 198, 255, 0.1);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 198, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary);
+        }
+
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .team-member .role {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .team-member p {
+            color: #b0b0ff;
+            line-height: 1.6;
+        }
+
+        /* Seção de Exchanges melhorada */
+        .exchanges-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .exchanges-intro {
+            font-size: 1.2rem;
+            color: #b0b0ff;
+            margin-bottom: 50px;
+            line-height: 1.7;
+        }
+
+        .exchange-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .exchange-logo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 198, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .exchange-logo-card img {
+            height: 40px;
+            width: auto;
+            max-width: 150px;
+            /* filter: brightness(0) invert(1); */
+        }
+
+        /* Ajustes de responsividade */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero .container {
+                padding: 0 5%;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(5, 5, 16, 0.95);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                border-top: 1px solid rgba(0, 198, 255, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .model-section-content,
+            .compatibility-content,
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-text {
+                text-align: center;
+            }
+
+            .exchange-logos {
+                gap: 20px;
+            }
+
+            .exchange-logo-card {
+                padding: 20px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                width: 100%;
+                text-align: center;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .hero .container {
+                padding: 0;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero h1 .cursor {
+                height: 3.2rem;
+            }
+
+            .cta-buttons,
+            .final-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exchange-logos {
+                gap: 15px;
+            }
+
+            .exchange-logo-card {
+                padding: 15px 20px;
+            }
+
+            .exchange-logo-card img {
+                height: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h1 .cursor {
+                height: 2.7rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .exchange-logos {
+                gap: 10px;
+            }
+
+            .exchange-logo-card {
+                padding: 10px 15px;
+            }
+
+            .exchange-logo-card img {
+                height: 25px;
+            }
+        }
+
+        /* Outros estilos existentes mantidos */
         .compatibility-content {
             display: flex;
             align-items: center;
@@ -369,7 +631,7 @@
             background: var(--card-bg);
             padding: 50px;
             border-radius: 20px;
-            border: 1px solid rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 198, 255, 0.1);
         }
 
         .model-image-container {
@@ -414,7 +676,7 @@
             background: var(--card-bg);
             padding: 50px;
             border-radius: 20px;
-            border: 1px solid rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 198, 255, 0.1);
         }
 
         .about-image-container {
@@ -447,15 +709,14 @@
             font-size: 1.1rem;
         }
 
-        /* --- CORREÇÃO 3: Botões Finais Lado a Lado --- */
         .cta-card {
             background: var(--card-bg);
             border-radius: 20px;
             padding: 60px 40px;
             max-width: 800px;
             margin: 0 auto;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            box-shadow: 0 0 50px rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 198, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 198, 255, 0.1);
             text-align: center;
         }
 
@@ -485,10 +746,122 @@
             margin-top: 20px;
         }
 
+        .preview-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 198, 255, 0.1);
+        }
+
+        .preview-item.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .preview-image {
+            flex: 1.2;
+            background-color: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .preview-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .preview-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .preview-text {
+            flex: 1;
+        }
+
+        .preview-text h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .preview-text p {
+            color: #b0b0ff;
+            font-size: 1.1rem;
+        }
+
+        .community-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid rgba(0, 198, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 198, 255, 0.1);
+            text-align: center;
+        }
+
+        .community-intro {
+            font-size: 1.2rem;
+            color: #b0b0ff;
+            margin-top: -30px;
+            margin-bottom: 40px;
+        }
+
+        .community-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .community-link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .community-link-btn i {
+            font-size: 1.8rem;
+        }
+
+        .community-link-btn.youtube {
+            background-color: #FF0000;
+        }
+
+        .community-link-btn.telegram {
+            background-color: #0088cc;
+        }
+
+        .community-link-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+
         footer {
             padding: 60px 0 30px;
             background: var(--dark);
-            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            border-top: 1px solid rgba(0, 198, 255, 0.1);
             position: relative;
             z-index: 5;
         }
@@ -527,238 +900,10 @@
             transition: color 0.3s ease;
         }
 
-        @media (max-width: 992px) {
-            .hero .container {
-                padding: 0 5%;
-            }
-
-            .model-section-content,
-            .compatibility-content,
-            .about-content {
-                flex-direction: column;
-            }
-
-            .about-text {
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-content {
-                width: 100%;
-                text-align: center;
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-
-            .hero .container {
-                padding: 0;
-            }
-
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-
-            .hero h1 .cursor {
-                height: 3.7rem;
-            }
-
-            .cta-buttons,
-            .final-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-
-        /* --- Estilos para a nova seção Dashboard Preview --- */
-        .preview-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 80px;
-            /* Aumenta o espaço entre os dois blocos */
-        }
-
-        .preview-item {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 240, 255, 0.1);
-        }
-
-        .preview-item.reverse {
-            flex-direction: row-reverse;
-        }
-
-        .preview-image {
-            flex: 1.2;
-            /* Dá mais espaço para a imagem */
-            background-color: #000;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .preview-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .preview-image img:hover {
-            transform: scale(1.05);
-        }
-
-        .preview-text {
-            flex: 1;
-        }
-
-        .preview-text h3 {
-            font-size: 2rem;
+        .footer-links a:hover {
             color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .preview-text p {
-            color: #b0b0ff;
-            font-size: 1.1rem;
-        }
-
-        /* Ajustes para telas menores */
-        @media (max-width: 992px) {
-
-            .preview-item,
-            .preview-item.reverse {
-                flex-direction: column;
-            }
-        }
-
-        /* --- Estilos para a nova seção de Exchanges --- */
-        .exchanges-container {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .exchanges-intro {
-            font-size: 1.2rem;
-            color: #b0b0ff;
-            margin-bottom: 50px;
-            line-height: 1.7;
-        }
-
-        .exchange-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 50px;
-            flex-wrap: wrap;
-        }
-
-        .exchange-logo-card {
-            background: var(--card-bg);
-            padding: 30px 50px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 240, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .exchange-logo-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.15);
-            border-color: var(--primary);
-        }
-
-        .exchange-logo-card img {
-            height: 50px;
-            /* Altura fixa para os logos */
-            width: auto;
-            filter: grayscale(100%) brightness(1.5);
-            /* Deixa os logos brancos/cinzas */
-            transition: filter 0.3s ease;
-        }
-
-        .exchange-logo-card:hover img {
-            filter: none;
-            /* Cor original ao passar o mouse */
-        }
-
-        /* --- Estilos para a nova seção de Comunidade --- */
-        .community-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 60px 40px;
-            max-width: 900px;
-            margin: 0 auto;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            box-shadow: 0 0 50px rgba(0, 240, 255, 0.1);
-            text-align: center;
-        }
-
-        .community-intro {
-            font-size: 1.2rem;
-            color: #b0b0ff;
-            margin-top: -30px;
-            /* Puxa o texto para mais perto do título */
-            margin-bottom: 40px;
-        }
-
-        .community-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .community-link-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            padding: 18px 40px;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .community-link-btn i {
-            font-size: 1.8rem;
-        }
-
-        .community-link-btn.youtube {
-            background-color: #FF0000;
-        }
-
-        .community-link-btn.telegram {
-            background-color: #0088cc;
-        }
-
-        /* Efeito de hover */
-        .community-link-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
         }
     </style>
-
-
-
 </head>
 
 <body>
@@ -770,18 +915,19 @@
                     <img src="imagens/Designer.jpeg" alt="Vector IA Logo" class="logo-img">
                     <div class="logo-text">Vector IA Signals</div>
                 </div>
-                <nav class="nav-links">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="nav-links" id="navLinks">
                     <a href="#features">Recursos</a>
                     <a href="#dashboard-preview">Painel 2.1</a>
                     <a href="#exchanges">Exchanges</a>
+                    <a href="#team">Equipe</a>
                     <a href="#community">Comunidade</a>
                     <a href="#models">Modelos</a>
                     <a href="#about">Sobre</a>
                     <a href="#download">Download</a>
                 </nav>
-
-
-
             </div>
         </div>
     </header>
@@ -796,7 +942,6 @@
                     da analise.</p>
                 <div class="cta-buttons">
                     <a href="#download" class="btn btn-primary">Baixar Agora (Windows)</a>
-                    <!-- CORREÇÃO 2: Botão "Saiba Mais" alterado -->
                     <a href="#download" class="btn btn-secondary">Adquirir Chave</a>
                 </div>
             </div>
@@ -846,14 +991,11 @@
             </div>
         </div>
     </section>
-    <!-- =================================================================== -->
-    <!-- ============ NOVA SEÇÃO PAINEL 2.1 COMEÇA AQUI ==================== -->
-    <!-- =================================================================== -->
+
     <section class="section section-bg" id="dashboard-preview">
         <div class="container">
             <h2 class="section-title">Conheça o Novo Painel 2.1</h2>
             <div class="preview-grid">
-                <!-- Bloco 1: Visão Geral -->
                 <div class="preview-item">
                     <div class="preview-image">
                         <img src="imagens/Imagem1.jpg" alt="Visão Geral do Painel Vector IA 2.1">
@@ -866,7 +1008,6 @@
                             importantes em tempo real.</p>
                     </div>
                 </div>
-                <!-- Bloco 2: Sala de Análise -->
                 <div class="preview-item reverse">
                     <div class="preview-image">
                         <img src="imagens/painel.jpg" alt="Sala de Análise Detalhada">
@@ -879,7 +1020,6 @@
                             estimada, tudo integrado a um gráfico dinâmico.</p>
                     </div>
                 </div>
-                <!-- Bloco 3: Análise de Microestrutura -->
                 <div class="preview-item">
                     <div class="preview-image">
                         <img src="imagens/microestrutura.jpg" alt="Análise de Microestrutura e Fluxo de Ordens">
@@ -894,14 +1034,9 @@
                         </p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-    <!-- =================================================================== -->
-    <!-- ============= NOVA SEÇÃO PAINEL 2.1 TERMINA AQUI ================== -->
-    <!-- =================================================================== -->
-
 
     <section class="section section-bg compatibility" id="compatibility">
         <div class="container">
@@ -934,6 +1069,57 @@
                     <div class="roadmap-item">
                         <h4>Vector IA Pro</h4>
                         <p>Plataforma empresarial com API</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOVA SEÇÃO DE EQUIPE -->
+    <section class="section section-bg team-section" id="team">
+        <div class="container">
+            <h2 class="section-title">Nossa Equipe</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="imagens/criador.jpg" alt="Foto do Fundador" class="member-photo">
+                    <h3>Allan Mazza</h3>
+                    <p class="role">Fundador & Desenvolvedor</p>
+                    <p>Especialista em IA e análise quantitativa com mais de 5 anos de experiência no mercado de
+                        criptomoedas. Responsável pelo desenvolvimento dos algoritmos preditivos e pela arquitetura da
+                        plataforma.</p>
+                </div>
+                <div class="team-member">
+                    <img src="imagens/ze trader.jpg" alt="Foto do Trader" class="member-photo">
+                    <h3>Zé Clodo</h3>
+                    <p class="role">Trader Sênior & Analista</p>
+                    <p>Trader profissional com vasta experiência em mercados financeiros e criptomoedas. Responsável
+                        pela validação dos sinais, estratégias de trading e análise de risco da plataforma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="exchanges">
+        <div class="container">
+            <h2 class="section-title">Conexão Direta com as Melhores Exchanges</h2>
+            <div class="exchanges-container">
+                <p class="exchanges-intro">
+                    O Vector IA 2.1 se conecta diretamente aos dados de mercado das principais exchanges globais. Isso
+                    garante que nossa análise preditiva e de fluxo de ordens seja feita
+                    com informações em tempo real, oferecendo a você sinais precisos e de baixa latência.
+                </p>
+                <div class="exchange-logos">
+                    <div class="exchange-logo-card">
+                        <img src="imagens/kucoin_logo.png" alt="Logo da KuCoin">
+                    </div>
+                    <div class="exchange-logo-card">
+                        <img src="imagens/bitget_logo.png" alt="Logo da Bitget">
+                    </div>
+                    <div class="exchange-logo-card">
+                        <img src="imagens/okx_logo.png" alt="Logo da OKX">
+                    </div>
+                    <div class="exchange-logo-card">
+                        <img src="imagens/bybit_logo.png" alt="Logo da Bybit">
                     </div>
                 </div>
             </div>
@@ -981,35 +1167,7 @@
             </div>
         </div>
     </section>
-    <!-- =================================================================== -->
-    <!-- ============ NOVA SEÇÃO EXCHANGES COMEÇA AQUI ===================== -->
-    <!-- =================================================================== -->
-    <section class="section" id="exchanges">
-        <div class="container">
-            <h2 class="section-title">Conexão Direta com as Melhores Exchanges</h2>
-            <div class="exchanges-container">
-                <p class="exchanges-intro">
-                    O Vector IA 2.1 se conecta diretamente aos dados de mercado da <strong>KuCoin</strong> e da
-                    <strong>Bitget</strong>. Isso garante que nossa análise preditiva e de fluxo de ordens seja feita
-                    com informações em tempo real, oferecendo a você sinais precisos e de baixa latência.
-                </p>
-                <div class="exchange-logos">
-                    <div class="exchange-logo-card">
-                        <img src="imagens/kucoin_logo.png" alt="Logo da KuCoin">
-                    </div>
-                    <div class="exchange-logo-card">
-                        <img src="imagens/bitget_logo.png" alt="Logo da Bitget">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- =================================================================== -->
-    <!-- ============= NOVA SEÇÃO EXCHANGES TERMINA AQUI =================== -->
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
-    <!-- ============ NOVA SEÇÃO COMUNIDADE COMEÇA AQUI ==================== -->
-    <!-- =================================================================== -->
+
     <section class="section section-bg" id="community">
         <div class="container">
             <div class="community-card">
@@ -1024,7 +1182,7 @@
                         <i class="fab fa-youtube"></i>
                         <span>Acompanhe no YouTube</span>
                     </a>
-                    <a href="[https://t.me/+hMSXPhoUMTdkNDRh]" target="_blank" class="community-link-btn telegram">
+                    <a href="https://t.me/ComunidadeVectorIA" target="_blank" class="community-link-btn telegram">
                         <i class="fab fa-telegram"></i>
                         <span>Entre na Comunidade</span>
                     </a>
@@ -1032,27 +1190,20 @@
             </div>
         </div>
     </section>
-    <!-- =================================================================== -->
-    <!-- ============= NOVA SEÇÃO COMUNIDADE TERMINA AQUI ================== -->
-    <!-- =================================================================== -->
 
-
-
-    <!-- --- CORREÇÃO 3: Seção final de CTA com dois botões lado a lado --- -->
     <section class="section section-bg cta-section" id="download">
         <div class="container">
             <div class="cta-card">
                 <h2>Pronto para Operar com uma Nova Perspectiva?</h2>
                 <p>Adquira sua licença e faça o download do Vector IA V2.1 para começar a usar a inteligência artificial
-                    a
-                    seu favor.</p>
+                    a seu favor.</p>
                 <div class="final-buttons">
-                    <a href="https://lastlink.com/p/C1B1B9998/" class="btn btn-primary">Adquirir Chave</a>
+                    <a href="https://go.hotmart.com/M102753337R" class="btn btn-primary">Adquirir Chave</a>
                     <a href="https://github.com/m4zz4s/-vector-ia-installer/releases/tag/VectorIAv2"
                         class="btn btn-secondary">Baixar para Windows</a>
                 </div>
-                <p class="purchase-note">Nosso plano está R$ 49,90 mensal. Após a compra, sua chave de acesso será
-                    enviada para seu e-mail.</p>
+                <p class="purchase-note">Temos 3 tipos de planos para você. Após a compra, sua chave de acesso será
+                    enviada para seu e-mail/whatsapp.</p>
             </div>
         </div>
     </section>
@@ -1085,7 +1236,7 @@
                     <h3>Contato</h3>
                     <ul class="footer-links">
                         <li><a href="mailto:contato@vectoria.com">vectoriasignalscontato@gmail.com</a></li>
-                        <li><a href="tel:+5511999999999">+55 (12) 99223-8242</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -1097,7 +1248,39 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS('particles-js', { particles: { number: { value: 50 }, color: { value: "#7b2cbf" }, shape: { type: "circle" }, opacity: { value: 0.3, random: true }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 200, color: "#00f0ff", opacity: 0.2, width: 1 }, move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out" } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" } } } });
+        // Configuração das partículas
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 50 },
+                color: { value: "#7b2cbf" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 200,
+                    color: "#00C6FF",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out"
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" }
+                }
+            }
+        });
+
+        // Efeito de digitação no título
         window.addEventListener('load', function () {
             const titleElement = document.getElementById('hero-title');
             const textToType = "Vector IA V2.1";
@@ -1115,7 +1298,17 @@
             }
             setTimeout(typeWriter, 500);
         });
+
+        // Menu mobile
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function () {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
     </script>
 </body>
-
-</html>
